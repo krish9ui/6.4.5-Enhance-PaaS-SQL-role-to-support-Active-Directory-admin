@@ -1,0 +1,69 @@
+#######create sql server 
+
+# Set an admin login and password for your database
+export adminlogin=labadmin
+export password=P@ssw0rd@123
+# the logical server name has to be unique in the system
+export servername=yashsqlsrvr
+
+# Create a resource group
+az group create \
+	--name yashsql \
+	--location centralindia 
+
+# Create a server
+az sql server create \
+	--name $servername \
+	--resource-group yashsql  \
+	--location centralindia \
+	--admin-user $adminlogin \
+	--admin-password $password
+#############################################
+create sql elasticpool 
+
+
+az sql elastic-pool create \
+                    --name yashpool \
+                    --resource-group yashsql \
+                    --server yashsqlsrvr 
+############################################
+##create two sql databases
+az sql db create \
+	--resource-group yashsql  \
+	--server yashsqlsrvr \
+	--name demodb1 \
+	--elastic-pool yashpool
+az sql db create \
+	--resource-group yashsql  \
+	--server yashsqlsrvr \
+	--name demodb2 \
+	--elastic-pool yashpool
+############################################################
+#####az sql server ad-admin create
+
+az sql server ad-admin create --display-name yashwin.yashwin5566@gmail.com\
+                              --object-id  ccc8a675-5108-4bb4-9502-7faafbbc9847 \
+                              --resource-group yashsql \
+                              --server yashsqlsrvr
+################################################################
+###az sql server ad-admin delete
+
+az sql server ad-admin delete --resource-group yashsql\
+                              --server yashsqlsrvr
+
+###############################################################
+##az sql server ad-admin list
+az sql server ad-admin list --resource-group yashsql\
+                            --server yashsqlsrvr
+#########################################
+
+##az sql server ad-admin update
+az sql server ad-admin update --resource-group yashsql\
+                              --server yashsqlsrvr \
+			      --display-name yashwin.yashwin5566@gmail.com\
+                              --object-id ccc8a675-5108-4bb4-9502-7faafbbc9847 
+
+                              
+                              
+                             
+                              
